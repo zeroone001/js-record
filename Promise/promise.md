@@ -86,4 +86,3 @@ Promise.prototype.then = function (onFulfilled, onRejected) {
     }
 }
 ```
-
