@@ -1,3 +1,4 @@
+[https://juejin.im/post/5db66672f265da4d0e009aad?utm_source=gold_browser_extension](https://juejin.im/post/5db66672f265da4d0e009aad?utm_source=gold_browser_extension)
 1. 后端处理
 ```javascript
 header(“Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept”);
