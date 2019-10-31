@@ -8,5 +8,15 @@
 </head>
 <body>
     <div ></div>
+    <script>
+        function getCookie(cookieName) {
+            var cookiePattern = new RegExp('(^|;)[ ]*' + cookieName + '=([^;]*)'),
+                cookieMatch = cookiePattern.exec(document.cookie);
+            return cookieMatch ? decodeURIComponent(cookieMatch[2]) : '';
+        }
+        dataLayer = [{
+            'userId': getCookie('smzdm_id')
+        }];
+    </script>
 </body>
 </html>
