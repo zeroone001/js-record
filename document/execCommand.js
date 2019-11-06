@@ -1,4 +1,5 @@
 // 复制文字到剪贴板
+
 function copy (text, callback) {
     if (document.execCommand('Copy')) {
         var input = document.createElement('input');
