@@ -12,7 +12,7 @@ var newArr = arr.map((item, index, array) => {
     2. reduce
     @params : Fun(preNum, item, index, array)
     累计值，当前值，整个数组
-
+    reduce 数组只有一个值，不执行回调函数
 */
 const arr = [1,2,3,5,63,3];
 var newArr = [].reduce.call(arr, function (col, item) {
