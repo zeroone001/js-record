@@ -1,3 +1,5 @@
+#### Event Loop
+
 > [运行机制](https://mp.weixin.qq.com/s/cOMlH-z5noHrg6Upg6zyNw)
 
 ###### 术语
@@ -7,7 +9,7 @@
 * 宏任务
 * 微任务
 * task有优先级，优先执行微任务，之后再执行宏任务
-* 
+  
 
 ```javascript
 ajax({
@@ -30,3 +32,4 @@ console.log('这是一个同步任务');
 6. 如此往复。
 
 为什么说上述不严谨我却还是强调所有的同步任务都是 MacroTask 呢，因为我们仅仅需要记住几个 MicroTask 即可，排除法！别的都是 MacroTask。MicroTask 包括：Process.nextTick、Promise.then catch finally(注意我不是说 Promise)、MutationObserver。
+
