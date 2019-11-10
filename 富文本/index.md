@@ -17,3 +17,6 @@ document.execCommand('insertImage', false, url || base64);
 // 把一段文字用 p 标签包裹起来
 document.execCommand('formatblock', false, '<p>');
 ```
+
+3. Selection 和 Range 对象
+
