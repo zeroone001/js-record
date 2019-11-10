@@ -1,5 +1,7 @@
 ##### 富文本知识记录
 
+> [富文本](https://mp.weixin.qq.com/s/tx8y00WXa0OWFEnmSj5caw)
+
 1. contenteditable="true"
 
 2. document.execCommand
