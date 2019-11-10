@@ -20,3 +20,13 @@ document.execCommand('formatblock', false, '<p>');
 
 3. Selection 和 Range 对象
 
+所以通常我们可以用 `letrange=window.getSelection().getRangeAt(0)` 来获取选中的内容信息（ getRangeAt 接受一个索引值，因为会有多个 Range，而现在只有一个，所以写0）。
+
+
+此外 Selection 对象还有几个常用的方法， `addRange、 removeAllRanges、 collapse 和 collapseToEnd` 等等
+
+4. notice
+
+* 有的同学可能用的不是 button 标签，然后执行命令就会无效，是因为点击其他标签大多都会造成先失去焦点（或者不知不觉就突然失去焦点了），再执行点击事件，此时没有选区或光标所以会没有效果，这点要留意一下。
+* 我们执行的是原生的 document.execCommand 方法，浏览器自身会对 contenteditable 这个可编辑区维护一个 undo 栈和一个 redo 栈，所以我们才能执行前进和后退的操作，如果我们改写了原生方法，就会破坏原有的栈结构，这时就需要自己去维护，那就麻烦了
+* style 里面如果加上 scope 的话，里面的样式对编辑区的内容是不生效的，因为编辑区里面是后来才创建的元素，所以要么删了 scope，要么用 /deep/ 解决（Vue 是这样）

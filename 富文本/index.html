@@ -5,10 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .edit {
+            width: 300px;
+            height: 400px;
+            border: 1px solid #dddddd;
+        }
+    </style>
 </head>
 <body>
-    <div contenteditable="true">
-        <p>这是可以编辑的</p>
+    <div>
+        <button onclick="execCommand('bold')">加粗</button>
+        <button onclick="execCommand('insertUnorderedList')">无序列表</button>
+        <button onclick="execCommand('insertHorizontalRule')">水平线</button>
+        <button onclick="execCommand('undo')">后退</button>
+        <button onclick="execCommand('redo')">前进</button>
+        <button onclick="execCommand('formatBlock', '<p>')">段落</button>
+        <button onclick="execCommand('formatBlock', '<h1>')">H1</button>
+        <button onclick="addlink()">插入链接</button>
+        <input type="file" id="insertImg" accept="image/png, image/jpeg" >
+    </div><br>
+    <div id="editor" class="edit" contenteditable="true">
     </div>
+    <script>
+        function execCommand (name, args) {
+            args = args || null;
+            document.execCommand(name, false, args);
+        }
+        function addlink () {
+            // 点击之前，光标一定要在输入框之内
+            var url = window.prompt('请输入链接地址');
+            console.log(url);
+            if (url) {
+                console.log('url', url);
+                execCommand('createLink', url);
+            }
+        }
+        document.querySelector('#editor').addEventListener('input', function () {
+            console.log('321');
+        });
+        document.querySelector('#insertImg').addEventListener('change', function (e) {
+            var reader = new FileReader();
+            console.log('1');
+            var file = e.target.files[0];
+            reader.onload = function () {
+                var base64 = this.result;
+                console.log('123', base64);
+                execCommand('insertImage', base64);
+                document.querySelector('#insertImg').value = '';
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
 </body>
 </html>
