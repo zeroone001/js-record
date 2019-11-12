@@ -4,7 +4,6 @@ function deepClone (obj) {
     var _obj = JSON.parse(JSON.stringify(obj));
     return _obj;
 }
-
 ```
 
 ```css
