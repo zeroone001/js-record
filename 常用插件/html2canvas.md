@@ -1,6 +1,8 @@
 ##### 遇到的坑
 
 > [坑](https://juejin.im/post/5b31d98ee51d4558817e14f8)
+> 神坑不建议使用
+
 
 1. allowTaint: true 和 useCORS: true 都是解决跨域问题的方式，不同的是使用allowTaint 会对canvas造成污染，导致无法使用canvas.toDataURL 方法，所以这里不能使用allowTaint: true
 2. 在跨域的图片里设置 `crossOrigin="anonymous" ` 并且需要给imageUrl加上随机数、
