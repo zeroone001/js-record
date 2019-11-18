@@ -23,3 +23,10 @@ window.addEventListener('popstate', function () {
     history.go(-1); // 之后执行返回
 });
 ```
+3. history.pushState()
+
+[简单聊聊H5的pushState与replaceState](https://juejin.im/post/5a7332b25188257a6d634f8d)
+```javascript
+history.pushState();
+history.replaceState(); // 淘宝使用的这个，不会刷新页面
+```
