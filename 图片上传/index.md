@@ -130,6 +130,7 @@ function preview () {
     reader.onload = function () {
         console.log(reader.result);
     };
+    // 会读取指定的blob或者File对象
     reader.readAsDataURL(file)
 }
 ```
