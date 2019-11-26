@@ -119,4 +119,22 @@ function resetOrientation(srcBase64, srcOrientation, callback) {
 };
 ```
 
+4. 上传方式
+
+* base64 上传， 需要用到FileReader
+```js
+<input type="file" id="files" onchange="preview()" />
+function preview () {
+    var file = document.querySelector('#files').files[0];
+    var reader = new FileReader();
+    reader.onload = function () {
+        console.log(reader.result);
+    };
+    reader.readAsDataURL(file)
+}
+```
+
+* 直接File文件，用FormData 上传
+* 
+
 
