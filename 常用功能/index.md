@@ -1,4 +1,4 @@
-```javascript
+```js
 // 深拷贝
 function deepClone (obj) {
     var _obj = JSON.parse(JSON.stringify(obj));
