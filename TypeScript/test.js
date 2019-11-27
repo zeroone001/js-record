@@ -8,3 +8,9 @@ var my = {
     age: 67
 };
 console.log(my);
+// 参数默认值
+function sum(x, y) {
+    if (y === void 0) { y = 123; }
+    return x + y;
+}
+sum(123);

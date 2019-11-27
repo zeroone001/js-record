@@ -69,5 +69,19 @@ function sun () {
 9. 函数的类型
 
 ```js
-
+// 输入多余的或者少于的参数都是不允许的
+function sum (x: number, y: number): number {
+    return x + y;
+}
+// 可选参数， 可选参数后面不允许再有参数了
+function sum (x: number, y?: number): number {
+    return x + y;
+}
+// 参数默认值
+function sum (x: number, y:number = 123): number {
+    return x + y;
+}
+sum(123);
 ```
+
+10. 

@@ -1,7 +1,7 @@
-function showName (name: string) {
+function showName (name: string): string {
     return 'your name is ' + name;
 }
-let myname = 'liuyyongsheng';
+let myname: string = 'liuyyongsheng';
 console.log(showName(myname));
 
 interface Person {
@@ -13,3 +13,9 @@ let my: Person = {
     age: 67
 }
 console.log(my);
+
+// 参数默认值
+function sum (x: number, y:number = 123): number {
+    return x + y;
+}
+sum(123);
