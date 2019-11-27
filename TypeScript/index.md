@@ -40,4 +40,34 @@ function getNumer (num: number | string): number {
     return 'this is your' + num;
 }
 ```
+7. 对象类型-接口
+```js
+// 赋值的时候变量的形状必须跟接口一致
+interface Person {
+    name: string;
+    age?: number;
+}
+let a: Person = {
+    name: 'lys',
+    age: 4
+};
+```
+8. 数组的类型
 
+```js
+// 类型+方括号
+let arr: number[] = [1,12];
+// 数组泛型
+let arr: Array<number> = [1, 2];
+// any
+let arr: any[] = [1, 3];
+
+function sun () {
+    let args: IArguments = arguments;
+}
+```
+9. 函数的类型
+
+```js
+
+```
