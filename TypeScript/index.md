@@ -83,5 +83,16 @@ function sum (x: number, y:number = 123): number {
 }
 sum(123);
 ```
+10. 类型断言
+语法： <类型>值 或者 值 as 类型
 
-10. 
+```js
+// 将一个联合类型的值，指定为一个更加具体的类型
+function sum (x: number | string): number {
+    if (<string>x.length) {
+        return x.length;
+    } else {
+        return x.toString().length;
+    }
+}
+```
