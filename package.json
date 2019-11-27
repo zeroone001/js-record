@@ -1,0 +1,21 @@
+{
+  "name": "js-record",
+  "version": "1.0.0",
+  "description": "PS： 主要是记录一些碎片化的JS技术使用技巧",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeroone001/js-record.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeroone001/js-record/issues"
+  },
+  "homepage": "https://github.com/zeroone001/js-record#readme"
+}

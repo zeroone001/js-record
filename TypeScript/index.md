@@ -96,3 +96,14 @@ function sum (x: number | string): number {
     }
 }
 ```
+11. 内置对象
+
+```js
+let r: RegExp = /[a-z]/;
+
+let body: HTMLElement = document.body;
+let s: NodeList = document.querySelectorAll('div');
+
+```
+
+
