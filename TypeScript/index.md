@@ -1,4 +1,6 @@
 ##### TS 学习记录
+> [入门教程](https://ts.xcatliu.com/)
+
 
 1. what
 
