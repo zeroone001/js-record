@@ -1,6 +1,11 @@
 ##### 需要安装的依赖
 
 * `@babel/core`, `@babel/cli`, 
+* 预设： `@babel/preset-env` 
+* `@babel/plugin-transform-runtime` `@babel/runtime` `@babel/runtime-corejs3`
+* `babel-loader`,`babel-eslint`
+* 一篇非常全面的配置教程
+
 
 1. plugin
 
