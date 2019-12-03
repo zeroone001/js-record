@@ -1,0 +1,17 @@
+{
+    "presets": [
+        ["@babel/preset-env", {
+            "targets": ["> 1%", "last 5 versions"]
+        }],
+        ["@babel/react"],
+        ["@babel/typescript"]
+    ],
+    "plugins": [
+        ["@babel/plugin-transform-runtime", {
+            "corejs": 3
+            // "helpers": true, // 是否导入helpers函数，默认true, 为false直接写页面
+            // "regenerator": true, // 默认true
+            // "useESModules": true // 默认true
+        }]
+    ]
+}
