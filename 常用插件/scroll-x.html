@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>水平滚动</title>
     <style>
         .inner-container {
             padding: 0;
@@ -13,11 +13,14 @@
         ul {
             overflow-x: scroll;
             overflow-y: auto;
+            /* 这个解决IOS不顺滑的问题 */
             -webkit-overflow-scrolling: touch;
             width: auto;
+            /* 解决inline-block 换行的问题 */
             white-space: nowrap;
             font-size: 0;
             box-sizing: border-box;
+            /* 解决有滚动条的问题 */
             padding-bottom: 20px;
             margin-bottom: -20px;
             padding-left: 10px;
