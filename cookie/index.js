@@ -15,7 +15,8 @@ function getCookie (name) {
     }
     return '';
 }
-function getCookie2 (name) {
+
+function getCookie (name) {
     let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
     let arr = document.cookie.match(reg);
     if (arr) {
