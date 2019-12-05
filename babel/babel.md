@@ -2,9 +2,10 @@
 
 * `@babel/core`, `@babel/cli`, 
 * 预设： `@babel/preset-env` 
-* `@babel/plugin-transform-runtime` `@babel/runtime` `@babel/runtime-corejs3`
+* `@babel/plugin-transform-runtime` `@babel/runtime-corejs3`
 * `babel-loader`,`babel-eslint`
 * 一篇非常全面的配置教程
+* 前提是babel7.4以上
 
 
 1. plugin
@@ -30,5 +31,7 @@ npm install --save-dev @babel/plugin-proposal-optional-chaining
 
 > [测试网站](https://browserl.ist/)
 
+3. corejs3 
 
-
+[corejs3 的更新](https://segmentfault.com/a/1190000020237817)
+这篇文章讲的特别好，两种配置方案
