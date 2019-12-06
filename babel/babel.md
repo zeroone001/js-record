@@ -35,3 +35,9 @@ npm install --save-dev @babel/plugin-proposal-optional-chaining
 
 [corejs3 的更新](https://segmentfault.com/a/1190000020237817)
 这篇文章讲的特别好，两种配置方案
+
+4. polyfill 还是 transform-runtime
+
+[polyfill 还是 transform-runtime](https://segmentfault.com/a/1190000020237790)
+
+5. [babel中的runtime-corejs和plugin-transform-runtime](https://jsweibo.github.io/2019/08/10/babel%E4%B8%AD%E7%9A%84runtime-corejs%E5%92%8Cplugin-transform-runtime/)
