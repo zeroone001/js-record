@@ -7,6 +7,14 @@ class Store {
         this.show = function (str) {
             return show.call(store, str);
         };
+        this._name = 'lys';
+    }
+    // 这里千万不要return this.name
+    get name () {
+        return this._name;
+    }
+    set name (value) {
+        this._name = value
     }
     show (str) {
         console.log(this);
