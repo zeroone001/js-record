@@ -3,6 +3,7 @@
 [https://juejin.im/post/5d3d3a685188257206519148](https://juejin.im/post/5d3d3a685188257206519148)
 [https://juejin.im/post/5ce3dbd1e51d454f72302461](https://juejin.im/post/5ce3dbd1e51d454f72302461)
 
+
 1. 环境与全局变量
 
 `env` `globals`
@@ -13,9 +14,11 @@
 
 3. rules
 
-4. extends
+> [官方rules](https://cn.eslint.org/docs/rules/)
 
-5. webpack
+1. extends
+
+2. webpack
 ```js
 devServer: {
     overlay: true // 如果代码不符合规范，就会在浏览器上面加上一个蒙层
