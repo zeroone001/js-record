@@ -1,2 +1,2 @@
-var num = 1
+var num = 1;
 num == '1'
