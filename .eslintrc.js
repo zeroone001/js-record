@@ -7,7 +7,9 @@ module.exports = {
         commonjs: true
     },
     extends: [
-        'plugin:vue/essential',
+        'plugin:vue/base',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:vue/recommended',
         'standard', // eslint-config-standard
         'html'
     ],
@@ -16,6 +18,7 @@ module.exports = {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly'
     },
+    parser: 'vue-eslint-parser',
     // 解析器配置参数
     parserOptions: {
         ecmaVersion: 2018,

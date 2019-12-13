@@ -9,10 +9,13 @@
 `env` `globals`
 
 2. 解析器配置
+   
+    // If you want to use custom parsers such as babel-eslint or @typescript-eslint/parser, you have to use parserOptions.parser option instead of parser option.
+
 
 `parse` `parseOptions`
 
-3. rules
+1. rules
 
 > [官方rules](https://cn.eslint.org/docs/rules/)
 
@@ -62,4 +65,6 @@ plugins: [
     })
 ]
 ```
+3. plugins
 
+`eslint-plugin-vue`
