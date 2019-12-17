@@ -5,8 +5,8 @@ module.exports = {
 		'node': true
 	},
 	'extends': [
-        'eslint:recommended',
-        'plugin:vue/recommended'
+        'standard',
+        // 'plugin:vue/recommended'
 	],
 	'globals': {
 		'Atomics': 'readonly',
