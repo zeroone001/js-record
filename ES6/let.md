@@ -12,4 +12,19 @@ typeof a; // 'undefined'
 // 这里b是一个全局变量
 typeof b; // number
 ```
+```js
+function arrayFromValue(item) {
+  return
+    [item];
+}
 
+arrayFromValue(10); // undefined 
+// 因为return后面换行了，相当于return;
+```
+
+```js
+myVar;   // => undefined
+myConst; // => ReferenceError 暂时死区
+var myVar = 'value';
+const myConst = 3.14;
+```
