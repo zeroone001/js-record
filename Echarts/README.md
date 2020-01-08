@@ -73,7 +73,8 @@ const lineOption = {
         // 显示数值 方式二
         label: {
             show: true
-        }
+        },
+        yAxisIndex: 0 // 这个对应第1个Y轴,这个属性用于多个Y轴的情况
     }]
 };
 lineChart.setOption(lineOption);
