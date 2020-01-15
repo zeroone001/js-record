@@ -31,6 +31,12 @@ x+ 匹配前面的模式 x 1 或多次。等价于 {1,}。
 
 7. exec()
 
+#### 京东单品正则匹配
+
+```js
+/^(https|http):\/\/(item|item.m)\.(jd)\.(com|hk)(\/product)?\/(\d+)\.html/i
+```
+
 
 
 
