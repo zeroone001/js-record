@@ -42,3 +42,10 @@ editor.addEventListener("paste", function(e) {
     document.execCommand("insertHTML", false, text);
 });
 ```
+#### form 表单上传图片
+```js
+<form target="iframe"></form>
+iframe.addEventListener('load', function(){
+
+});
+```
