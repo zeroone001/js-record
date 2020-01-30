@@ -9,6 +9,7 @@
 2. install
 
 `npm install -g typescript`
+`npm --registry https://registry.npm.taobao.org install -g typescript`
 
 3. 原始数据类型
 

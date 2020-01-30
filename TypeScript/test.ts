@@ -19,3 +19,11 @@ function sum (x: number, y:number = 123): number {
     return x + y;
 }
 sum(123);
+
+type Str = string;
+
+function getName (name: Str): string {
+    return name + 'weqwe';
+}
+
+getName('aaaa');
