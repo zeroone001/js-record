@@ -11,6 +11,8 @@ function copy (id) {
     document.execCommand('copy');
     document.body.removeChild(t);
 }
+// 方法二 https://github.com/zenorocha/clipboard.js
+// 使用第三方库
 
 ```
 
