@@ -18,6 +18,36 @@ function getListener(obj, type, force) {
 }
 ```
 
+#### 原生JS实现事件委托
+```js
+// 事件委托具体实现
+var ul = document.getElementById("ul");
+ul.onclick = function (event) {
+    event = event || window.event;
+    var target = event.target;
+    // 获取目标元素
+    if (target.nodeName == 'LI') {
+        alert(target.innerHTML);
+    }
+}
+// 为按钮绑定点击事件
+var btn = document.getElementById('btn');
+btn.onclick = function () {
+    var li = document.createElement('li');
+    // 新增li的内容为ul当前子元素的个数
+    li.textContent = ul.children.length;
+    ul.appendChild(li);
+}
+```
+
+#### JS 中二进制和十进制的转化
+
+```js
+var a = 40;
+a.toString(2); // 二进制
+
+parseInt( "10010111100",2); // 转化成十进制
+```
 
 
 
