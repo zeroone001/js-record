@@ -46,7 +46,7 @@ btn.onclick = function () {
 var a = 40;
 a.toString(2); // 二进制
 
-parseInt( "10010111100",2); // 转化成十进制
+parseInt( "10010111100",2); // 转化成十进制git
 ```
 
 
