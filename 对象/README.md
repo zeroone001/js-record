@@ -20,3 +20,29 @@ let _obj = createObj();
 var a = JSON.stringify({n:1});
 var json = (new Function("return " + a))();
 ```
+#### 对象使用的小技巧
+
+可选链，可惜现在都不支持
+
+```javascript
+var obj = {
+    qw: {
+        er: {
+            ww: '12312'
+        }
+    }
+};
+obj?.qw?.er?.ww
+```
+#### new 创建一个对象的过程
+
+```js
+function Person (age, name) {
+    this.age = age;
+    this.name = name;
+    console.log(this);
+}
+```
+
+
+

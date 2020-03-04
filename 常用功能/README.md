@@ -55,4 +55,13 @@ watch: {
     }
 },
 ```
+#### getQuery
+```js
+// new URL 兼容性问题：IE不支持
+try {
+  var url = new URL(location.href); // https://confluence-team.smzdm.com/pages/viewpage.action?pageId=33985973
+  var pageId = url.searchParams.get("pageId"); // 33985973
+} catch (e) {
 
+}
+```
