@@ -48,7 +48,13 @@ a.toString(2); // 二进制
 
 parseInt( "10010111100",2); // 转化成十进制git
 ```
+#### HTML lang
 
+```html
+<!-- 推荐使用 -->
+<!-- Hans 简体汉字 zh 中国字或中国话 -->
+<html lang="zh-Hans"></html>
+```
 
 
 
