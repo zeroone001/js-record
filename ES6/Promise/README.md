@@ -86,3 +86,19 @@ Promise.prototype.then = function (onFulfilled, onRejected) {
     }
 }
 ```
+
+#### Promise.resolve
+```js
+// async函数，始终返回一个promise
+async function a () {
+    return await Promise.resolve('312');
+}
+const b = a();
+console.log(b); // Promise {<pending>}
+async function r () {
+    return await 'ad';
+}
+const q = r();
+console.log(q); // Promise {<pending>}
+
+```
