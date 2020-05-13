@@ -55,6 +55,7 @@ parseInt( "10010111100",2); // 转化成十进制git
 <!-- Hans 简体汉字 zh 中国字或中国话 -->
 <html lang="zh-Hans"></html>
 ```
+#### js中小数相加小数点后面多出很多位
 
-
+javascript浮点运算,使用toFixed(2)函数把结果保留小数点后两位
 
