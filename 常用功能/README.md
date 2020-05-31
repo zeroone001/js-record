@@ -65,3 +65,38 @@ try {
 
 }
 ```
+#### 倒计时
+
+```js
+methods: {
+  countDownFun () {
+        if (this.countTime) {
+            clearInterval(this.countTime);
+        }
+        this.countTime = setInterval(() => {
+            let s = this.totalS % 60;
+            let m = parseInt(this.totalS % 3600 / 60);
+            let h = parseInt(this.totalS / 3600);
+            this.countH = this.timeFilter(h);
+            this.countM = this.timeFilter(m);
+            this.countS = this.timeFilter(s);
+            if (this.totalS === 0) {
+                clearInterval(this.countTime);
+                this.isShow = false;
+                return false;
+            } else {
+                this.totalS -= 1;
+            }
+        }, 1000);
+    },
+    timeFilter (time) {
+        if (time < 10) {
+            return '0' + String(time);
+        } else {
+            return time;
+        }
+    }
+}
+```
+
+
