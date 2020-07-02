@@ -36,7 +36,13 @@ x+ 匹配前面的模式 x 1 或多次。等价于 {1,}。
 ```js
 /^(https|http):\/\/(item|item.m)\.(jd)\.(com|hk)(\/product)?\/(\d+)\.html/i
 ```
+#### match & exec
 
+string.match(regexp) // 返回数组或者null
+
+!!string.match(regexp) // 返回true或false
+
+regexp.exec(string) // 返回数组或者null 
 
 
 
