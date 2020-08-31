@@ -6,7 +6,7 @@ iOS端
 Android端
 支持协议
 
-HTTP、HTTPS (SMZDM业务已此协议为主)
+HTTP、HTTPS 
 SOCKS
 配置
 #### 电脑端配置

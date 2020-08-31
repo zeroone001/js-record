@@ -2,7 +2,7 @@
 import axios from 'axios'
 /* eslint-disable */
 const service = axios.create({
-  baseURL: 'https://zhanbao-bgm.smzdm.com/',
+  baseURL: 'xxxx',
   timeout: 30000,
   withCredentials: true,
   headers: {
