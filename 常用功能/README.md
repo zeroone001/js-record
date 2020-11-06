@@ -34,7 +34,7 @@ var successful = document.execCommand('copy');
 #### 倒计时
 ```js
 countDown () {
-    this.timeCount = this.timestamp * 1000 - new Date().getTime();
+    this.timeCount = parseInt((this.timestamp * 1000 - new Date().getTime()) / 1000);
     const ts = setInterval(() => {
         if (this.timeCount === 0) {
             clearInterval(ts);
@@ -47,9 +47,9 @@ watch: {
         if (newVal) {
             const seconds = newVal % 60;
             this.seconds = seconds < 10 ? '0' + seconds : seconds;
-            const minute = parseInt(newVal % 3600 / 60);
+            const minute = parseInt(newVal / 60 % 60);
             this.minute = minute < 10 ? '0' + minute : minute;
-            const hours = parseInt(newVal / 3600);
+            const hours = parseInt(newVal / 3600 % 24);
             this.hours = hours < 10 ? '0' + hours : hours;
         }
     }
