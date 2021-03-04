@@ -16,6 +16,7 @@
             background: red;
             margin-top: 50px;
             padding-top: 20px;
+            position: relative;
         }
         .div2 {
             width: 50px;
@@ -23,6 +24,7 @@
             background: blue;
             margin-top: 50px;
             padding-top: 20px;
+            position: fixed;
         }
         .div3 {
             width: 100px;
@@ -34,6 +36,14 @@
     </style>
 </head>
 <body>
+    <!-- 
+        offsetParent定位父级
+          偏移量属性一般就是offsetLeft、offsetTop、offsetHeight、offsetWidth这四种了，然后还有一个offsetParent属性作为偏移的参照点。在网上看到的offsetParent的定义是：与当前元素最近的经过定位(position不等于static)的父级元素（感觉和绝对定位的定位点很类似？）。然后具体情况分为下面几种：
+        1. position为fixed时，offsetParent为null，offsettop的值和top相等。此时元素是以视口来定位的。
+        2. position非fixed，父级元素无定位（static）时，offsetParent为body。
+        3. position非fixed，父级元素有定位时，offsetParent为最近的有定位的父级元素。
+        4. body元素，offsetParent为null，offsettop为0（似乎是废话）。
+    -->
     <div id="div1" class="div1">
         <div class="div2" id="div2"></div>
         div1
@@ -46,7 +56,7 @@
             var div1 = document.querySelector('#div1');
             var div2 = document.querySelector('#div2');
             var div3 = document.querySelector('#div3');
-            console.log('div1.offsetTop', div1.offsetTop, div1.offsetParent.offsetTop);
+            console.log('div1.offsetTop', div1.offsetTop, div1.offsetParent);
             console.log('div2.offsetTop', div2.offsetTop, div2.offsetParent);
             console.log('div3.offsetTop', div3.offsetTop, div3.offsetParent);
         });
