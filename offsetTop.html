@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .div1 {
+            width: 100px;
+            height: 700px;
+            background: red;
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+        .div2 {
+            width: 50px;
+            height: 200px;
+            background: blue;
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+        .div3 {
+            width: 100px;
+            height: 200px;
+            background: blue;
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1" class="div1">
+        <div class="div2" id="div2"></div>
+        div1
+    </div>
+    <div class="div3" id="div3">
+        div3
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var div1 = document.querySelector('#div1');
+            var div2 = document.querySelector('#div2');
+            var div3 = document.querySelector('#div3');
+            console.log('div1.offsetTop', div1.offsetTop, div1.offsetParent.offsetTop);
+            console.log('div2.offsetTop', div2.offsetTop, div2.offsetParent);
+            console.log('div3.offsetTop', div3.offsetTop, div3.offsetParent);
+        });
+    </script>
+</body>
+</html>
