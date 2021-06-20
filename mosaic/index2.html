@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="parentID">
+        <!-- <img src="https://sponsor-static.segmentfault.com/cdce7ab67d0eb47a6c76ffad6afcdd60.jpg" alt=""> -->
+        <canvas id="canvas"></canvas>
+    </div>
+    <button id="upload">上传图片</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var canvasAPI = function () {
+                this._init();
+            }
+            canvasAPI.prototype = {
+                flag: false,
+                clickX: 0,
+                clickY: 0,
+                canvas: null,
+                _init: function () {
+                    var that = this;
+                    var parentID = document.getElementById('parentID');
+                    var canvas = document.getElementById('canvas');
+                    this.canvas = canvas;
+                    var ctx = canvas.getContext('2d');
+                    var MyImage = new Image();
+                    MyImage.setAttribute('crossOrigin', 'anonymous');
+                    MyImage.crossOrigin = 'Anonymous';
+                    MyImage.src = 'https://sponsor-static.segmentfault.com/cdce7ab67d0eb47a6c76ffad6afcdd60.jpg';
+                    MyImage.onload = function () {
+                        that.canvas.width = MyImage.width;
+                        that.canvas.height = MyImage.height;
+                        ctx.drawImage(MyImage, 0, 0, MyImage.width, MyImage.height);
+                    };
+                    parentID.onmousedown = function (e) {
+                        // 首先清空重新再画
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(MyImage, 0,0, canvas.width, canvas.height);
+                        this.flag = true;
+                        this.clickX = e.offsetX;
+                        this.clickY = e.offsetY;
+                    }
+                    parentID.onmouseup = function () {
+                        this.flag = false;
+                    }
+                    parentID.onmousemove = function (e) {
+                        console.log('e-------->', e);
+                        if (this.flag) {
+                            ctx.clearRect(0, 0, canvas.width, canvas.height)
+                            ctx.drawImage(MyImage, 0, 0, canvas.width, canvas.height);
+                            ctx.beginPath();
+                            let pixels = [] // 二维数组，每个子数组有5个值（绘制矩形左上角的X坐标、y坐标，矩形的宽、高，生成的4位随机数用于颜色值）
+                            for (let x = 0; x < (e.offsetX - this.clickX) / 5; x++) {
+                                for (let y = 0; y < (e.offsetY - this.clickY) / 5; y++) {
+                                    pixels.push([(x * 5 + this.clickX), (y * 5 + this.clickY), 5, 5, Math.floor(Math.random() * 9999)])
+                                }
+                                for (let y = 0; y > (e.offsetY - this.clickY) / 5; y--) {
+                                    pixels.push([(x * 5 + this.clickX), (y * 5 + this.clickY), 5, 5, Math.floor(Math.random() * 9999)]);
+                                }
+                            }
+                            for (let x = 0; x > (e.offsetX - this.clickX) / 5; x--) {
+                                for (let y = 0; y > (e.offsetY - this.clickY) / 5; y--) {
+                                    pixels.push([(x * 5 + this.clickX), (y * 5 + this.clickY), 5, 5, Math.floor(Math.random() * 9999)])
+                                }
+                                for (let y = 0; y < (e.offsetY - this.clickY) / 5; y++) {
+                                    pixels.push([(x * 5 + this.clickX), (y * 5 + this.clickY), 5, 5, Math.floor(Math.random() * 9999)])
+                                }
+                            }
+                            console.log('pixels---------->',pixels);
+                            // 遍历数组绘制小正方形块
+                            for (let i = 0; i < pixels.length; i++) {
+                                ctx.fillStyle = '#bf' + pixels[i][4];
+                                // 矩形填充方法， 横坐标，纵坐标，宽，高
+                                ctx.fillRect(pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3]);
+                            }
+                            // 路径填充
+                            ctx.fill();
+                            ctx.closePath();
+                        }
+                    }
+                    document.getElementById('upload').addEventListener('click', function() {
+                        that.upload();
+                    });
+                    
+                },
+                upload: function () {
+                    var base64Img = this.canvas.toDataURL('image/jpeg');
+                    console.log('base64Img------>', base64Img);
+                    // base64 格式转换为blob格式
+                    var blob = this.dataURLtoBlob(base64Img);
+                    console.log('blob------------>', blob)
+                },
+                dataURLtoBlob: function(imgBase64) {
+                    var myBlob;
+                    var blobBin = atob(imgBase64.split(',')[1]);
+                    var array = [];
+                    for(var i = 0; i < blobBin.length; i++) {
+                        array.push(blobBin.charCodeAt(i));
+                    }
+                    // 生成文件
+                    myBlob = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+                    myBlob.lastModifiedDate = new Date();
+                    myBlob.name = 'file.png';
+                    myBlob.id = new Date().getTime();
+                    return myBlob;
+                }
+            }
+            new canvasAPI();
+        });
+    </script>
+</body>
+</html>

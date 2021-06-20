@@ -59,3 +59,5 @@ parseInt( "10010111100",2); // 转化成十进制git
 
 javascript浮点运算,使用toFixed(2)函数把结果保留小数点后两位
 
+#### 打码
+mosaic
