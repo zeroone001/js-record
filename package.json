@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "PS： 主要是记录一些碎片化的JS技术使用技巧",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "sn-console": "^1.0.6"
+  },
   "devDependencies": {
     "@types/node": "^12.12.14",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
