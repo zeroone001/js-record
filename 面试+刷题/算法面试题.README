@@ -43,5 +43,22 @@ function flatten2(arr) {
 }
 
 
+// 思路
+
+function flatten (arr) {
+    let newArr = [];
+    for(let i = 0; i < arr.length; i++) {
+        let a = arr[i];
+        if (Array.isArray(a)) {
+            // 假如是数组
+            newArr = flatten(newArr.concat(a));
+        } else {
+            if (newArr.indexOf(a) > -1) continue;
+            newArr.push(a);
+        }
+    }
+    return newArr.sort((b, c) => b - c);
+}
+
 ```
 
