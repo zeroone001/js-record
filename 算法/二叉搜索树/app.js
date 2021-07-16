@@ -63,9 +63,21 @@ function generatorBST() {
         }
     };
 
-    // 后序遍历
+    // 后序遍历 递归
+    generatorBST.prototype.lastOrderTraversel = function (handle) {
+        this.lastOrderTraverselNode(this.root, handle);
+    };  
+    generatorBST.prototype.lastOrderTraverselNode = function (node, handle) {
+        if (node !== null) {
+            this.lastOrderTraverselNode(node.left, handle);
 
-    
+
+            this.lastOrderTraverselNode(node.right, handle);
+
+            handle(node.key); // 关键
+        }
+    };
+
 
 }
 
