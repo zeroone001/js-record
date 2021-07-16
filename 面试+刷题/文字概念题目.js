@@ -34,3 +34,39 @@
 
 */
 
+// 4. 扩展运算符与rest参数
+
+/*
+
+    rest 参数：
+    demo : 
+    function test (a,b, ...the_array) {
+
+    }
+    如果函数的最后一个参数，以...作为前缀，那么他就是一个以【剩余参数】组成的真数组
+
+    rest参数与arguments的区别：
+    1. rest数组里面，只包含那些没有对应形参的实参，而arguments包含了传给函数的所有实参
+    2. arguments 不是一个真正的数组，但是rest是一个真正的Array实例
+
+    arguments 转化为真正的数组： var arr = Array.prototype.slice.call(arguments);
+
+    扩展运算符
+
+    1. 可以把数组在语法层面展开
+    var arr1 = [1,2,3];
+    var arr2 = [4,5,6];
+    arr2.push(...arr1);
+    2. 可以把字符串在语法层面展开
+    var str = 'skylys';
+    var arr = [];
+    arr.push(...str); // ["s","k","y","l","y","s"]
+    3. 在构造字面量对象的时候，将对象表达式按照key-value 的形式展开, 用于克隆或者属性拷贝
+    var a = {a: 1,b: function(){console.log(1)}}
+    var cc = {...a};
+    a === cc // false
+
+
+
+
+*/
