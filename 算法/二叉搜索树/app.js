@@ -77,7 +77,70 @@ function generatorBST() {
             handle(node.key); // 关键
         }
     };
+    // 搜索节点
 
+     
+    // 删除节点
+    generatorBST.prototype.remove = function (key) {
+        let current = this.root;
+        let parent = null;
+        let isleftChild = true;
+        // 寻找节点
+        while (current.key !== key) {
+            parent = current;
+
+            if (key < current.key) {
+                current = current.left;
+                isleftChild = true;
+            } else if (key > current.key) {
+                current = current.right;
+                isleftChild = false;
+            }
+            // 找到最后的节点都没有找到
+            if (current === null) {
+                return false;
+            }
+        }
+
+        // 删除的节点是叶子节点
+        if (current.left === null && current.right === null) {
+            // 这就是一个叶子节点
+            if (current === this.root) {
+                this.root = null;
+            } else if (isleftChild){
+                parent.left = null;
+            } else if (!isleftChild) {
+                parent.right = null;
+            }
+        }
+
+        // 有一个子节点
+        else if (current.right === null) {
+            if (current === this.root) {
+                this.root = current.left;
+            }
+            if (isleftChild) {
+                parent.left = current.left;
+            } else {
+                parent.right = current.left;
+            }
+        } else if (current.left === null) {
+            if (current === this.root) {
+                this.root = current.right;
+            }
+            if (isleftChild) {
+                parent.left = current.right;
+            } else {
+                parent.right = current.right;
+            }
+        }
+
+
+        // 
+
+
+    };
+ 
 
 }
 
