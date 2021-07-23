@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="a">{{aaa}}<span>{{vvvv}}</span></div>
+        <div class="b">{{bbbb}}</div>
+        <input type="text" v-model="ccc" />
+        <div v-html="dddd"></div>
+        <div v-text="hhhh" ></div>
+        <div v-text="person.name"></div>
+    </div>
+    <script src="index.js"></script>
+    <script>
+        new MyVue({
+            el: '#app',
+            data: {
+                aaa: 'aaa',
+                vvvv: 'vvvv',
+                bbbb: 'bbbb',
+                ccc: 'ccc',
+                dddd: '我是HTML',
+                hhhh: '我是text显示',
+                person: {
+                    name: '我是text显示2'
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -57,3 +57,10 @@ db.order.aggregate([
         }
     }
 ])
+
+
+// 数据库的备份和还原
+
+// mongodump -h 127.0.0.1 -d nowDB -o /Users/smzdm/beifen-db  -u zhangsan -p '123456'
+
+// mongorestore -h 127.0.0.1 -d nowDB -o /Users/smzdm/beifen-db  -u zhangsan -p '123456'
