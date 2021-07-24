@@ -8,26 +8,39 @@
 </head>
 <body>
     <div id="app">
-        <div class="a">{{aaa}}<span>{{vvvv}}</span></div>
-        <div class="b">{{bbbb}}</div>
+        <div class="a">{{ aaa }}<span>{{ vvvv }}</span></div>
+        <div class="b" v-on:click="clickEvent">点击我{{ bbbb }}</div>
+        <div class="o" @click="clickEvent2">{{ bbbb }}----{{ oooo }}</div>
         <input type="text" v-model="ccc" />
         <div v-html="dddd"></div>
         <div v-text="hhhh" ></div>
         <div v-text="person.name"></div>
+        <img :src="imgUrl" alt="">
     </div>
+    <script src="./Observer.js"></script>
     <script src="index.js"></script>
     <script>
-        new MyVue({
+        var vm = new MyVue({
             el: '#app',
             data: {
-                aaa: 'aaa',
-                vvvv: 'vvvv',
-                bbbb: 'bbbb',
-                ccc: 'ccc',
+                aaa: '我是aaa',
+                vvvv: '我是vvvv',
+                bbbb: '我是bbbb',
+                ccc: '我是ccc',
                 dddd: '我是HTML',
                 hhhh: '我是text显示',
+                oooo: '我是O',
                 person: {
                     name: '我是text显示2'
+                },
+                imgUrl: 'https://fanyiapp.cdn.bcebos.com/cms/image/5464a363589faed0a9d288b13cf34470.PNG'
+            },
+            methods: {
+                clickEvent () {
+                    console.log('111111', this);
+                },
+                clickEvent2 () {
+                    console.log('2222222', this);
                 }
             }
         });
