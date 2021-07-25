@@ -9,12 +9,13 @@
 <body>
     <div id="app">
         <div class="a">{{ aaa }}<span>{{ vvvv }}</span></div>
-        <div class="b" v-on:click="clickEvent">点击我{{ bbbb }}</div>
-        <div class="o" @click="clickEvent2">{{ bbbb }}----{{ oooo }}</div>
-        <input type="text" v-model="ccc" />
+        <div class="b" v-on:click="clickEvent">clickEvent点击我{{ bbbb }}</div>
+        <div class="o" @click="clickEvent2">clickEvent2{{ eeee }}----{{ oooo }}</div>
+        <input type="text" v-model="model" />
         <div v-html="dddd"></div>
-        <div v-text="hhhh" ></div>
+        <div v-text="text_direct" ></div>
         <div v-text="person.name"></div>
+        <div v-text="person.age"></div>
         <img :src="imgUrl" alt="">
     </div>
     <script src="./Observer.js"></script>
@@ -25,22 +26,27 @@
             data: {
                 aaa: '我是aaa',
                 vvvv: '我是vvvv',
-                bbbb: '我是bbbb',
-                ccc: '我是ccc',
+                bbbb: 'bbbbb',
+                eeee: '我是eeee',
+                model: '我是model',
                 dddd: '我是HTML',
-                hhhh: '我是text显示',
+                text_direct: '我是text指令',
                 oooo: '我是O',
                 person: {
-                    name: '我是text显示2'
+                    name: '我是年龄',
+                    age: '12'
                 },
                 imgUrl: 'https://fanyiapp.cdn.bcebos.com/cms/image/5464a363589faed0a9d288b13cf34470.PNG'
             },
             methods: {
                 clickEvent () {
-                    console.log('111111', this);
+                    console.log('111111');
+                    this.$data.bbbb = '变化之后的bbbb';
                 },
                 clickEvent2 () {
-                    console.log('2222222', this);
+                    console.log('2222222');
+                    this.$data.eeee = '我是新的eeee'
+
                 }
             }
         });

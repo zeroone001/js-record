@@ -3,6 +3,8 @@
 // expr 其实就是data里面的key
 const CompileUtil = {
     // 解决persion.name 的问题
+
+    // 注意，每次执行一遍getValue的时候， Observer 里面的get() 就会执行一遍
     getValue(expr, vm) {
         // reduce 如果传了第二个参数的话，data就是第二个参数
         return expr.split('.').reduce((data, currentData) => {
@@ -10,18 +12,34 @@ const CompileUtil = {
             return data[currentData];
         }, vm.$data);
     },
+    getContentText (expr, vm) {
+        return expr.replace(/\{\{(.+?)\}\}/g, (...args)=> {
+            return this.getValue(args[1].replace(/\s+/g, ''), vm);
+        });
+    },
+
     text(node, expr, vm) {
         let value;
         // expr 可能带大括号 {{}}
+        // 注意，大括号，这边的替换要使用replace
         if (expr.indexOf('{{') !== -1) {
             value = expr.replace(/\{\{(.+?)\}\}/g, (...args)=> {
                 // console.log('args---->', args);
+                // 妙
+                new Watcher(vm, args[1].replace(/\s+/g, ''), (newVal) => {
+                    // 这里太巧妙了
+                    this.update.textUpdater(node, this.getContentText(expr, vm));
+                });
                 return this.getValue(args[1].replace(/\s+/g, ''), vm);
             });
             // console.log('new_expr', new_expr);
             // value = this.getValue(new_expr, vm);
         } else {
             // 指令属性
+            new Watcher(vm, expr, (newVal) => {
+                // 这里太巧妙了
+                this.update.textUpdater(node, newVal);
+            });
             value = this.getValue(expr, vm);
         }
 
@@ -31,10 +49,21 @@ const CompileUtil = {
     },
     html(node, expr, vm) {
         const value = this.getValue(expr, vm);
+        // 订阅数据变化，绑定更新函数
+        console.log('更新DOM结构------>');
+        new Watcher(vm, expr, (newVal) => {
+            // 这里太巧妙了
+            this.update.htmlUpdater(node, newVal);
+        });
+        // 这里既要监听，又要更新
         this.update.htmlUpdater(node, value);
     },
     model(node, expr, vm) {
         const value = this.getValue(expr, vm);
+        new Watcher(vm, expr, (newVal) => {
+            // 这里太巧妙了
+            this.update.modelUpdater(node, newVal, vm);
+        });
         this.update.modelUpdater(node, value, vm);
     },
     bind (node, expr, vm, attrName) {
