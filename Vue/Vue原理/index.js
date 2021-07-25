@@ -12,6 +12,19 @@ const CompileUtil = {
             return data[currentData];
         }, vm.$data);
     },
+    // 修改data的值
+    setValue (expr, vm, value) {
+        const arr = expr.split('.');
+        console.log('value', value);
+        arr.reduce((data, currentData) => {
+            // console.log('data', data, currentData);
+            if (currentData === arr[arr.length - 1]) {
+                console.log('---->', currentData);
+                data[currentData] = value;
+            }
+            return data[currentData];
+        }, vm.$data);
+    },
     getContentText (expr, vm) {
         return expr.replace(/\{\{(.+?)\}\}/g, (...args)=> {
             return this.getValue(args[1].replace(/\s+/g, ''), vm);
@@ -58,12 +71,19 @@ const CompileUtil = {
         // 这里既要监听，又要更新
         this.update.htmlUpdater(node, value);
     },
+    // 双向数据绑定
     model(node, expr, vm) {
         const value = this.getValue(expr, vm);
+        // 数据驱动视图
         new Watcher(vm, expr, (newVal) => {
             // 这里太巧妙了
             this.update.modelUpdater(node, newVal, vm);
         });
+        // 视图 -> 数据
+        node.addEventListener('input', (e) => {
+            this.setValue(expr, vm, e.target.value);
+        }, false);
+
         this.update.modelUpdater(node, value, vm);
     },
     bind (node, expr, vm, attrName) {
@@ -221,6 +241,21 @@ class MyVue {
             new Observer(this.$data);
             // 实现指令解析器
             new Compile(this.$el, this);
+
+            // 给data做一个代理
+            this.proxyData(this.$data);
+        }
+    }
+    proxyData (data) {
+        for (const key in data) {
+            Object.defineProperty(this, key, {
+                get () {
+                    return data[key];
+                },
+                set (newVal) {
+                    data[key] = newVal;
+                }
+            })
         }
     }
 }

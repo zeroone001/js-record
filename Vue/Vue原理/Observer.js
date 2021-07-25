@@ -38,6 +38,7 @@ class Observer {
                 return value;
             },
             set:(newValue) => {
+                console.log('set---->');
                 if (newValue !== value) {
                     // 解决直接修改对象导致没有了劫持和监听
                     this.observer(newValue);

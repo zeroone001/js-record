@@ -10,8 +10,8 @@
     <div id="app">
         <div class="a">{{ aaa }}<span>{{ vvvv }}</span></div>
         <div class="b" v-on:click="clickEvent">clickEvent点击我{{ bbbb }}</div>
-        <div class="o" @click="clickEvent2">clickEvent2{{ eeee }}----{{ oooo }}</div>
-        <input type="text" v-model="model" />
+        <div class="o" @click="clickEvent2">clickEvent2{{ eeee.e }}----{{ oooo }}</div>
+        <input type="text" v-model="model.m" />
         <div v-html="dddd"></div>
         <div v-text="text_direct" ></div>
         <div v-text="person.name"></div>
@@ -27,8 +27,12 @@
                 aaa: '我是aaa',
                 vvvv: '我是vvvv',
                 bbbb: 'bbbbb',
-                eeee: '我是eeee',
-                model: '我是model',
+                eeee: {
+                    e: '我是eeee'
+                },
+                model: {
+                    m: '我是model'
+                },
                 dddd: '我是HTML',
                 text_direct: '我是text指令',
                 oooo: '我是O',
@@ -41,11 +45,11 @@
             methods: {
                 clickEvent () {
                     console.log('111111');
-                    this.$data.bbbb = '变化之后的bbbb';
+                    this.bbbb = '变化之后的bbbb';
                 },
                 clickEvent2 () {
                     console.log('2222222');
-                    this.$data.eeee = '我是新的eeee'
+                    this.eeee.e = '我是新的eeee'
 
                 }
             }
