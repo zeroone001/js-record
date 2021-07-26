@@ -51,7 +51,7 @@ class Observer {
     }
 }
 // 收集和通知观察者
-class Dep {
+window.Dep = class Dep {
     constructor () {
         this.subs = [];
     }
@@ -64,11 +64,7 @@ class Dep {
         console.log('notify--->', this.subs);
         // 取出观察者
         this.subs.forEach(w => w.update());
-
-
     }
-
-
 }
 // 观察者
 class Watcher {
