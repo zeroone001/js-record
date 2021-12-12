@@ -175,3 +175,27 @@ function add(x) {
 add(10)(20)(30);
 ```
 
+## 数组降维度
+
+```js
+// 1 es6 flat
+const newArr = oldArr.flat(Infinity);
+// 2 reduce 
+const newArr = oldArr.reduce((prev, curr) => (prev.concat(curr)), []);
+// 3 concat 
+const newArr = [].concat(...oldArr);
+const newnewArr = Array.prototype.concat.apply([], oldArr);
+// 递归
+const newArr = [];
+
+const ergodic = (arr) => {
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      ergodic(item);
+    } else {
+      newArr.push(item);
+    }
+  })
+}
+```
+
