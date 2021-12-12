@@ -156,3 +156,22 @@ function checkPositive(arr) {
 checkPositive([1, 2, 3, -4, 5]);
 ```
 
+## **函数柯里化和局部调用**
+
+柯里化在不能一次为函数提供所有参数情况下很有用。 因为它可以将每个函数的调用保存到一个变量中，该变量将保存返回的函数引用，该引用在下一个参数可用时接受该参数
+
+```js
+function add(x) {
+  // 只修改这一行下面的代码
+
+  return function(y){
+    return function(z) {
+      return x+y+z
+    }
+  }
+  // 只修改这一行上面的代码
+}
+
+add(10)(20)(30);
+```
+
