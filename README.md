@@ -7,7 +7,7 @@ PS： 主要是记录一些碎片化的JS技术使用技巧
 * 数组去重
 * URL get Params
 
-#### 注册事件监听器
+### 注册事件监听器
 
 ```js
 function getListener(obj, type, force) {
@@ -18,7 +18,7 @@ function getListener(obj, type, force) {
 }
 ```
 
-#### 原生JS实现事件委托
+### 原生JS实现事件委托
 ```js
 // 事件委托具体实现
 var ul = document.getElementById("ul");
@@ -65,3 +65,65 @@ mosaic
 ### 前端研发工具集
 
 https://appworks.site/
+
+### 在原型上实现 map 方法
+
+```js
+// 全局变量
+const s = [23, 65, 98, 5];
+
+Array.prototype.myMap = function(callback) {
+  const newArray = [];
+  // 只修改这一行下面的代码
+  this.forEach((item) => {
+    newArray.push(callback(item))
+  });
+  // 只修改这一行上面的代码
+  return newArray;
+};
+
+const new_s = s.myMap(function(item) {
+  return item * 2;
+});
+```
+
+## 计算数字的平方
+
+```js
+Math.pow(4, 2) // 16， 4的平方
+```
+
+## 判断是否是整数
+
+```js
+const a = 1.1
+// es6
+Number.isInteger(a)
+
+// 取余运算符
+a % 1 === 0 // 任何整数都会被1整除，即余数是0
+
+// Math.floor()
+Math.floor(a) === a
+
+// 位运算
+
+a | 0 === a
+
+```
+
+## **使用 sort 方法按字母顺序给数组排序**
+
+```js
+function alphabeticalOrder(arr) {
+  // 只修改这一行下面的代码
+
+  return arr.sort(function(a, b) {
+    return a === b ? 0 : a < b ? -1 : 1;
+  });
+  // 只修改这一行上面的代码
+}
+
+alphabeticalOrder(["a", "d", "c", "a", "z", "g"]);
+```
+
