@@ -127,3 +127,32 @@ function alphabeticalOrder(arr) {
 alphabeticalOrder(["a", "d", "c", "a", "z", "g"]);
 ```
 
+## **使用 split 方法将字符串拆分成数组**
+
+```js
+// 把单词拆分出来
+function splitify(str) {
+  // 只修改这一行下面的代码
+  return str.split(/[^a-zA-Z]/);
+  // 只修改这一行上面的代码
+}
+
+splitify("Hello World,I-am code");
+```
+
+## **使用 some 方法检查数组中是否有元素是否符合条件**
+
+```js
+// 这里跟 every 一起思考
+function checkPositive(arr) {
+  // 只修改这一行下面的代码
+
+  return arr.some(item => {
+    return item > 0
+  })
+  // 只修改这一行上面的代码
+}
+
+checkPositive([1, 2, 3, -4, 5]);
+```
+
