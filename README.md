@@ -1,67 +1,83 @@
-### javascript 技术记录
+### 记录常用知识
 
-PS： 主要是记录一些碎片化的JS技术使用技巧
+> 作为笔记使用
 
-* axios 封装
-* 类型转换
-* 数组去重
-* URL get Params
 
-#### 注册事件监听器
 
-```js
-function getListener(obj, type, force) {
-    var allListeners;
-    type = type.toLowerCase();
-    return ( ( allListeners = ( obj.__allListeners || force && ( obj.__allListeners = {} ) ) )
-        && ( allListeners[type] || force && ( allListeners[type] = [] ) ) );
-}
+## 代理 mitmproxy
+
+安装教程： https://www.jianshu.com/p/bfa21e0252b6
+
+
+
+https://mitmproxy.org/
+
+
+
+https://github.com/mitmproxy/mitmproxy
+
+`brew install mitmproxy`
+
+https://www.jianshu.com/p/bea984d27cd2
+
+
+
+## 修改brew的镜像
+
+
+
+```bash
+# 替换brew.git
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 刷新源
+brew update
 ```
 
-#### 原生JS实现事件委托
-```js
-// 事件委托具体实现
-var ul = document.getElementById("ul");
-ul.onclick = function (event) {
-    event = event || window.event;
-    var target = event.target;
-    // 获取目标元素
-    if (target.nodeName == 'LI') {
-        alert(target.innerHTML);
-    }
-}
-// 为按钮绑定点击事件
-var btn = document.getElementById('btn');
-btn.onclick = function () {
-    var li = document.createElement('li');
-    // 新增li的内容为ul当前子元素的个数
-    li.textContent = ul.children.length;
-    ul.appendChild(li);
-}
+
+
+```bash
+替换brew.git:
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.cloud.tencent.com/homebrew/brew.git
+
+替换homebrew-core.git:
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.cloud.tencent.com/homebrew/homebrew-core.git
+
+# 刷新源
+brew update
 ```
 
-#### JS 中二进制和十进制的转化
 
-```js
-var a = 40;
-a.toString(2); // 二进制
 
-parseInt( "10010111100",2); // 转化成十进制git
-```
-#### HTML lang
+1. 启动： `mitmproxy -p 8888`
 
-```html
-<!-- 推荐使用 -->
-<!-- Hans 简体汉字 zh 中国字或中国话 -->
-<html lang="zh-Hans"></html>
-```
-#### js中小数相加小数点后面多出很多位
+2. 手机配置代理，在WiFi里面，手机输入IP和端口号
 
-javascript浮点运算,使用toFixed(2)函数把结果保留小数点后两位
+3. 手机安装证书
 
-#### 打码
-mosaic
+4. IOS：浏览器输入网址 [mitm.it](http://mitm.it/)  按照步骤下载安装，然后，设置-通用-描述文件-已下载的描述文件-选择mitmproxy，安装；设置-关于本机-证书信任设置-mitmproxy开启
 
-### 前端研发工具集
+5. ##### Android安装
 
-https://appworks.site/
+   * 1)设置-无线局域网-点击wifi名称-配置代理-手动，服务器写入测试工具对应的IP地址，端口亦然，存储
+   * 2)chrome或者火狐浏览器访问地址- [mitm.it](http://mitm.it/)，如第一步设置正确，此时可看到证书下载页，点击Android证书
+   * 3)允许下载
+   * 4)选择证书，安装即可
+
+##### PC安装
+
+* 1)设置-网络-高级-网页代理（HTTP）,网页代理服务器写入对应的IP地址，端口亦然
+* 2)网页代理（HTTPS）,安全网页代理服务器写入对应的IP地址，端口亦然
+* 3)存储以上配置
+* 4)safari或者chrome访问地址-[mitm.it](http://mitm.it/)，选择macOS证书
+* 5)下载后双击安装
+* 6)打开-钥匙串访问（在启动台内可找到，是一个应用）
+* 7)种类-所有项目-右上角搜索-mitmproxy-双击
+* 8)信任-使用此证书时-选择-始终信任-关闭，输入密码即可

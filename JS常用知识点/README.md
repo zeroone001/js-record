@@ -1,102 +1,67 @@
-#### 浏览器复制粘贴
-> https://segmentfault.com/a/1190000007616673
-```js
-// 一，动态添加input的方法
-function copy (id) {
-    var t = document.createElement('input');
-    t.setAttribute('value', document.getElementById(id).innerHTML);
-    document.body.appendChild(t);
-    t.select();
-    var content = window.getSelection().toString();
-    document.execCommand('copy');
-    document.body.removeChild(t);
-}
-// 方法二 https://github.com/zenorocha/clipboard.js
-// 使用第三方库
-// 三，
-var copyDOM = document.querySelector('#selector');  
-  var range = document.createRange();  
-  // 选中需要复制的节点
-  range.selectNode(copyDOM);
-  // 执行选中元素
-  window.getSelection().addRange(range);
-  // 执行 copy 操作
-var successful = document.execCommand('copy');  
-  try {  
-    var msg = successful ? 'successful' : 'unsuccessful';  
-    console.log('copy is' + msg);  
-  } catch(err) {  
-    console.log('Oops, unable to copy');  
-  }
-// 移除选中的元素
-  window.getSelection().removeAllRanges();  
-```
-#### 倒计时
-```js
-countDown () {
-    this.timeCount = parseInt((this.timestamp * 1000 - new Date().getTime()) / 1000);
-    const ts = setInterval(() => {
-        if (this.timeCount === 0) {
-            clearInterval(ts);
-        }
-        this.timeCount--;
-    }, 1000);
-},
-watch: {
-    timeCount (newVal) {
-        if (newVal) {
-            const seconds = newVal % 60;
-            this.seconds = seconds < 10 ? '0' + seconds : seconds;
-            const minute = parseInt(newVal / 60 % 60);
-            this.minute = minute < 10 ? '0' + minute : minute;
-            const hours = parseInt(newVal / 3600 % 24);
-            this.hours = hours < 10 ? '0' + hours : hours;
-        }
-    }
-},
-```
-#### getQuery
-```js
-// new URL 兼容性问题：IE不支持
-try {
-  var url = new URL(location.href); 
-  var pageId = url.searchParams.get("pageId"); // 33985973
-} catch (e) {
+### javascript 技术记录
 
-}
-```
-#### 倒计时
+PS： 主要是记录一些碎片化的JS技术使用技巧
+
+* axios 封装
+* 类型转换
+* 数组去重
+* URL get Params
+
+#### 注册事件监听器
 
 ```js
-methods: {
-  countDownFun () {
-        if (this.countTime) {
-            clearInterval(this.countTime);
-        }
-        this.countTime = setInterval(() => {
-            let s = this.totalS % 60;
-            let m = parseInt(this.totalS % 3600 / 60);
-            let h = parseInt(this.totalS / 3600);
-            this.countH = this.timeFilter(h);
-            this.countM = this.timeFilter(m);
-            this.countS = this.timeFilter(s);
-            if (this.totalS === 0) {
-                clearInterval(this.countTime);
-                this.isShow = false;
-                return false;
-            } else {
-                this.totalS -= 1;
-            }
-        }, 1000);
-    },
-    timeFilter (time) {
-        if (time < 10) {
-            return '0' + String(time);
-        } else {
-            return time;
-        }
+function getListener(obj, type, force) {
+    var allListeners;
+    type = type.toLowerCase();
+    return ( ( allListeners = ( obj.__allListeners || force && ( obj.__allListeners = {} ) ) )
+        && ( allListeners[type] || force && ( allListeners[type] = [] ) ) );
+}
+```
+
+#### 原生JS实现事件委托
+```js
+// 事件委托具体实现
+var ul = document.getElementById("ul");
+ul.onclick = function (event) {
+    event = event || window.event;
+    var target = event.target;
+    // 获取目标元素
+    if (target.nodeName == 'LI') {
+        alert(target.innerHTML);
     }
 }
+// 为按钮绑定点击事件
+var btn = document.getElementById('btn');
+btn.onclick = function () {
+    var li = document.createElement('li');
+    // 新增li的内容为ul当前子元素的个数
+    li.textContent = ul.children.length;
+    ul.appendChild(li);
+}
 ```
 
+#### JS 中二进制和十进制的转化
 
+```js
+var a = 40;
+a.toString(2); // 二进制
+
+parseInt( "10010111100",2); // 转化成十进制git
+```
+#### HTML lang
+
+```html
+<!-- 推荐使用 -->
+<!-- Hans 简体汉字 zh 中国字或中国话 -->
+<html lang="zh-Hans"></html>
+```
+#### js中小数相加小数点后面多出很多位
+
+javascript浮点运算,使用toFixed(2)函数把结果保留小数点后两位
+
+#### 打码
+mosaic
+
+### 前端研发工具集
+
+https://appworks.site/
