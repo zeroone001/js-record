@@ -238,3 +238,86 @@ const ergodic = (arr) => {
 }
 ```
 
+## 如何优雅地链式取值
+
+https://juejin.cn/post/6844903681029046279
+
+```js
+/* 这是自己写的，没成功 */
+const isObject = (val) =>
+  val !== null && typeof val === 'object'
+function getDeepProp (obj) {
+  return new Proxy(obj, {
+    get (target, key, receiver) {
+      const res = Reflect.get(target, key, receiver)
+      if (isObject(res)) {
+        return getDeepProp(res)
+      }
+      if (!res) return {}
+      return res;
+    }
+  })
+}
+var c = {a: {b : [1,2,3] }}
+const cProxy = getDeepProp(c);
+/* 下面是loadsh 的 */
+function get (obj, props, def) {
+    if((obj == null) || obj == null || typeof props !== 'string') return def;
+    const temp = props.split('.');
+    const fieldArr = [].concat(temp);
+    temp.forEach((e, i) => {
+        if(/^(\w+)\[(\w+)\]$/.test(e)) {
+            const matchs = e.match(/^(\w+)\[(\w+)\]$/);
+            const field1 = matchs[1];
+            const field2 = matchs[2];
+            const index = fieldArr.indexOf(e);
+            fieldArr.splice(index, 1, field1, field2);
+        }
+    })
+    return fieldArr.reduce((pre, cur) => {
+        const target = pre[cur] || def;
+
+        if(target instanceof Array) {
+            return [].concat(target);
+        }
+        if(target instanceof Object) {
+            return Object.assign({}, target)
+        }
+        return target;
+    }, obj)
+}
+var c = {a: {b : [1,2,3] }}
+get(c ,'a.b')     // [1,2,3]
+get(c, 'a.b[1]')  // 2
+get(c, 'a.d', 12)  // 12
+
+/* 下面是Proxy的形式 */
+function pointer(obj, path = []) {
+    return new Proxy(() => {}, {
+        get (target, property) {
+            return pointer(obj, path.concat(property))
+        },
+        apply (target, self, args) {
+            let val = obj;
+            let parent;
+            for(let i = 0; i < path.length; i++) {
+                if(val === null || val === undefined) break;
+                parent = val;
+                val = val[path[i]]    
+            }
+            if(val === null || val === undefined) {
+                val = args[0]
+            }
+            return val;
+        }
+    })
+}
+let c = {a: {b: [1, ,2 ,3]}}
+
+pointer(c).a();   // {b: [1,2,3]}
+
+pointer(c).a.b(); // [1,2,3]
+
+pointer(d).a.b.d('default value');  // default value
+
+```
