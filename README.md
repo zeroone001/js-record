@@ -321,3 +321,21 @@ pointer(c).a.b(); // [1,2,3]
 pointer(d).a.b.d('default value');  // default value
 
 ```
+
+## XMLHttpRequest
+
+```js
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('getMessage').onclick = function(){
+      // 在这行下面添加代码
+const req = new XMLHttpRequest();
+req.open('GET', '/json/cats.json', true);
+req.send();
+req.onload = function () {
+    const json = JSON.parse(req.responseText);
+  document.getElementsByClassName('message')[0].innerHTML = JSON.stringify(json);
+
+}
+    };
+  });
+```
