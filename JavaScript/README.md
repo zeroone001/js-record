@@ -9,7 +9,7 @@ PS： 主要是记录一些碎片化的JS技术使用技巧
 
 ### Event Loop
 
-
+https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif
 
 ### 注册事件监听器
 
