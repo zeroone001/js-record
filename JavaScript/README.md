@@ -1,4 +1,4 @@
-### javascript 技术记录
+## javascript
 
 PS： 主要是记录一些碎片化的JS技术使用技巧
 
@@ -7,7 +7,11 @@ PS： 主要是记录一些碎片化的JS技术使用技巧
 * 数组去重
 * URL get Params
 
-#### 注册事件监听器
+### Event Loop
+
+
+
+### 注册事件监听器
 
 ```js
 function getListener(obj, type, force) {
