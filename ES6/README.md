@@ -1,4 +1,10 @@
-###### Promise使用
+## Promise使用
+
+https://zhuanlan.zhihu.com/p/138140285
+
+## Promise和Async/Await
+
+
 
 ```javascript
 /*
@@ -28,7 +34,7 @@ Promise.all([runAsync1(), runAsync2(), runAsync3()]).then(function(results){
 });
 ```
 
-##### 这是Promise的简单实现
+## 这是Promise的简单实现
 ```javascript
 /*
     手写一个promise
@@ -87,7 +93,7 @@ Promise.prototype.then = function (onFulfilled, onRejected) {
 }
 ```
 
-#### Promise.resolve
+## Promise.resolve
 ```js
 // async函数，始终返回一个promise
 async function a () {
