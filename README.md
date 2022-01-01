@@ -427,3 +427,18 @@ js分为基本类型和引用类型：
 
 现代浏览器可以支持用 script 标签引入模块或者脚本，如果要引入模块，必须给 script 标签添加 type=“module”。如果引入脚本，则不需要 type。
 
+## 如何使用css来实现禁止移动端页面的左右划动手势？
+
+CSS属性 touch-action 用于设置触摸屏用户如何操纵元素的区域(例如，浏览器内置的缩放功能)。
+
+```css
+html{
+ touch-action: none;
+ touch-action: pan-y;
+}
+/* 还可以 */
+html{
+ width: 100vw;
+ overflow-x: hidden;
+}
+```
