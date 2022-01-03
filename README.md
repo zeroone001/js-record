@@ -442,3 +442,39 @@ html{
  overflow-x: hidden;
 }
 ```
+
+## js 中的倒计时，怎么实现纠正偏差
+
+在前端实现中我们一般通过 setTimeout 和 setInterval 方法来实现一个倒计时效果。但是使用这些方法会存在时间偏差的问题，这是由于 js 的程序执行机制造成的，setTimeout 和 setInterval 的作用是隔一段时间将回调事件加入到事件队列中，因此事件并不是立即执行的，它会等到当前执行栈为空的时候再取出事件执行，因此事件等待执行的时间就是造成误差的原因。
+
+一般解决倒计时中的误差的有这样两种办法：
+
+（1）第一种是通过前端定时向服务器发送请求获取最新的时间差，以此来校准倒计时时间。
+
+（2）第二种方法是前端根据偏差时间来自动调整间隔时间的方式来实现的。这一种方式首先是以 setTimeout 递归的方式来实现倒计时，然后通过一个变量来记录已经倒计时的秒数。每一次函数调用的时候，首先将变量加一，然后根据这个变量和每次的间隔时间，我们就可以计算出此时无偏差时应该显示的时间。然后将当前的真实时间与这个时间相减，这样我们就可以得到时间的偏差大小，因此我们在设置下一个定时器的间隔大小的时候，我们就从间隔时间中减去这个偏差大小，以此来实现由于程序执行所造成的时间误差的纠正。
+
+```js
+const interval = 1000 // 设定倒计时规则为每秒倒计时
+let totalCount = 30000 // 设定总倒计时长为30s
+let count = 0 // 记录递归已执行次数，以倒计时时间间隔 interval=1s 为例，那么count就相当于如果没有时间偏差情况下的理想执行时间
+
+const startTime = new Date().getTime(); // 记录程序开始运行的时间
+let timeoutID = setTimeout(countDownFn, interval)
+
+// 倒计时回调函数
+function countDownFn() {
+    count++ // count自增，记录理想执行时间
+    // 获取当前时间减去刚开始记录的startTime再减去理想执行时间得到时间偏差：等待执行栈为空的时间
+    const offset = new Date().getTime() - startTime - count * interval
+    let nextTime = interval - offset // 根据时间偏差，计算下次倒计时设定的回调时间，从而达到纠正的目的
+    if (nextTime < 0 ) {
+        nextTime = 0
+    }
+    totalCount -= interval
+    if (totalCount < 0) {
+        clearTimeout(timeoutID)
+    } else {
+        timeoutID = setTimeout(countDownStart, nextTime)
+    }
+}
+```
