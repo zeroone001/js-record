@@ -1,6 +1,4 @@
-# Javascript
-
-## 注册事件监听器
+# Javascriptå
 
 ## 代理 mitmproxy
 
@@ -697,3 +695,26 @@ setTimeout 和 setInterval的运行机制，其实就是将指定的代码移出
 这意味着，setTimeout指定的代码，必须等到本次执行的所有同步代码都执行完，才会执行。
 
 
+## 如何将 unknown 类型指定为一个更具体的类型
+
+1. typeof 进行类型判断
+2. as 类型断言
+
+使用 typeof 进行类型判断（这些缩小类型范围的技术都有助于TS基于控制流程下的类型分析）
+```ts
+function unknownToString(value: unknown): string {
+  if (typeof value === "string") {
+    return value;
+  }
+
+  return String(value);
+}
+```
+
+对 unknown 类型使用类型断言
+
+```ts
+const value: unknown = "Hello World";
+const foo: string = value; // Error
+const bar: string = value as string; // OK
+```
