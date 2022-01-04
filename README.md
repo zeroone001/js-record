@@ -603,3 +603,97 @@ scrollLeft 属性返回的是元素滚动条到元素左边的距离。
 Unicode 是一种字符集合，现在可容纳 100 多万个字符。每个字符对应一个不同的 Unicode 编码，它只规定了符号的二进制代码，却没有规定这个二进制代码在计算机中如何编码传输。
 
 UTF-8 是一种对 Unicode 的编码方式，它是一种变长的编码方式，可以用 1~4 个字节来表示一个字符。
+
+## 怎么检测浏览器版本？
+
+检测浏览器版本一共有两种方式：
+
+一种是检测 window.navigator.userAgent 的值，但这种方式很不可靠，因为 userAgent 可以被改写，并且早期的浏览器如 ie，会通过伪装自己的 userAgent 的值为 Mozilla 来躲过服务器的检测。
+
+第二种方式是功能检测，根据每个浏览器独有的特性来进行判断，如 ie 下独有的 ActiveXObject。
+
+## 移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？
+
+移动端点击有 300ms 的延迟是因为移动端会有双击缩放的这个操作，因此
+浏览器在 click 之后要等待 300ms，看用户有没有下一次点击，来判断这次操作是不是双击。
+
+有三种办法来解决这个问题：
+
+通过 meta 标签禁用网页的缩放。
+通过 meta 标签将网页的 viewport 设置为 ideal viewport。
+调用一些 js 库，比如 FastClick
+click 延时问题还可能引起点击穿透的问题，就是如果我们在一个元素上注册了 touchStart 的监听事件，这个事件会将这个元素隐藏掉，我们发现当这个元素隐藏后，触发了这个元素下的一个元素的点击事件，这就是点击穿透。
+
+## 如何判断当前脚本运行在浏览器还是 node 环境中？
+
+this === window ? 'browser' : 'node';
+
+## 实现一个对象的 flatten 方法
+
+```js
+function objectFlat(obj = ''){
+  const res = {}
+  function flat(item , preKey = ''){
+    Object.entries(item).forEach(([key,value]) => {
+      let newKey = key
+      if (Array.isArray(item)){
+        // console.log('是数组')
+        newKey = preKey ? `${preKey}[${key}]` : key
+      }else{
+        newKey = preKey ? `${preKey}.${key}` : key
+      }
+      if (value && typeof value === 'object'){
+        flat(value , newKey)
+      }else{
+        res[newKey] = value
+      }
+    })
+  }
+  flat(obj)
+  return res
+}
+
+const source = { a: { b: { c: 1, d: 2 }, e: 3 }, f: { g: 2 } }
+console.log(objectFlat(source));
+const obj = {
+  a: 1,
+  b: [1, 2, { c: true }],
+  c: { e: 2, f: 3 },
+  g: null,
+};
+console.log(objectFlat(obj));
+
+```
+
+## setTimeout 为什么不能保证能够及时执行?
+
+> 主线程从任务队列中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop。
+
+setTimeout 并不能保证执行的时间，是否及时执行取决于 JavaScript 线程是拥挤还是空闲。
+
+浏览器的JS引擎遇到setTimeout，拿走之后不会立即放入异步队列，同步任务执行之后，timer模块会到设置时间之后放到异步队列中。js引擎发现同步队列中没有要执行的东西了，即运行栈空了就从异步队列中读取，然后放到运行栈中执行。所以setTimeout可能会多了等待线程的时间。
+
+这时setTimeout函数体就变成了运行栈中的执行任务，运行栈空了，再监听异步队列中有没有要执行的任务，如果有就继续执行，如此循环，就叫Event Loop。
+
+## 介绍些 setTimeout 的运行机制
+
+JavasScript引擎是基于事件驱动和单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行程序，即主线程。那么单线程的JavasScript是怎么实现“非阻塞执行”呢？是通过任务队列。
+
+所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。
+
+单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。但是如果有些任务很慢时（比如Ajax操作从网络读取数据），我还是要等结果在执行后一个任务吗？于是，有了一种异步任务。
+
+同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；而异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有主线程执行完毕，主线程去通知"任务队列"，某个异步任务可以执行了，该任务才会进入主线程执行。
+
+所以js的运行机制如下：
+
+所有同步任务都在主线程上执行，形成一个执行栈（Call Stack）
+主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件
+一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+主线程不断重复上面的第三步。
+setTimeout运行机制
+setTimeout 和 setInterval的运行机制，其实就是将指定的代码移出本次执行，等到下一轮 Event Loop 时，再检查是否到了指定时间。如果到了，就执行对应的代码；如果不到，就等到再下一轮 Event Loop 时重新判断。
+
+这意味着，setTimeout指定的代码，必须等到本次执行的所有同步代码都执行完，才会执行。
+
+
