@@ -763,3 +763,146 @@ a.style.widht = "10px";
 
 URIError
 在使用encodeURI或者decodeURI因为URL格式不正确时，就会导致URIError错误。这种错误也很少见。
+
+## 说说你对git reset 和 git revert 的理解？区别？
+
+git reset
+reset用于回退版本，可以遗弃不再使用的提交
+
+执行遗弃时，需要根据影响的范围而指定不同的参数，可以指定是否复原索引或工作树内容
+
+git revert
+在当前提交后面，新增一次提交，抵消掉上一次提交导致的所有变化，不会改变过去的历史，主要是用于安全地取消过去发布的提交
+
+git revert
+跟git reset用法基本一致，git revert 撤销某次操作，此次操作之前和之后的 commit和history都会保留，并且把这次撤销，作为一次最新的提交，如下：
+
+git revert <commit_id> 
+如果撤销前一个版本，可以通过如下命令：
+
+git revert HEAD
+撤销前前一次，如下：
+
+git revert HEAD^
+三、区别
+撤销（revert）被设计为撤销公开的提交（比如已经push）的安全方式，git reset被设计为重设本地更改
+
+因为两个命令的目的不同，它们的实现也不一样：重设完全地移除了一堆更改，而撤销保留了原来的更改，用一个新的提交来实现撤销
+
+两者主要区别如下：
+
+git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit
+git reset 是把HEAD向后移动了一下，而git revert是HEAD继续前进，只是新的commit的内容和要revert的内容正好相反，能够抵消要被revert的内容
+在回滚这一操作上看，效果差不多。但是在日后继续 merge 以前的老版本时有区别
+git revert是用一次逆向的commit“中和”之前的提交，因此日后合并老的branch时，之前提交合并的代码仍然存在，导致不能够重新合并
+
+但是git reset是之间把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入
+
+如果回退分支的代码以后还需要的情况则使用git revert， 如果分支是提错了没用的并且不想让别人发现这些错误代码，则使用git reset
+
+## 说说你对git rebase 和 git merge的理解？以及它们的区别？
+
+merge
+通过merge合并分支会新增一个merge commit，然后将两个分支的历史联系起来
+
+其实是一种非破坏性的操作，对现有分支不会以任何方式被更改，但是会导致历史记录相对复杂
+
+rebase
+rebase 会将整个分支移动到另一个分支上，有效地整合了所有分支上的提交
+
+主要的好处是历史记录更加清晰，是在原有提交的基础上将差异内容反映进去，消除了 git merge所需的不必要的合并提交
+
+## 说说对git pull 和 git fetch 的理解？有什么区别？
+
+相同点：
+
+在作用上他们的功能是大致相同的，都是起到了更新代码的作用
+不同点：
+
+git pull是相当于从远程仓库获取最新版本，然后再与本地分支merge，即git pull = git fetch + git merge
+相比起来，git fetch 更安全也更符合实际要求，在 merge 前，我们可以查看更新情况，根据实际情况再决定是否合并
+
+
+## 什么是“事件代理”
+
+事件代理（Event Delegation）也称之为事件委托。是JavaScript中常用绑定事件的常用技巧。
+
+顾名思义，“事件代理”即是把原本需要绑定在子元素的响应事件委托给父元素，让父元素担当事件监听的职务。
+
+事件代理的原理是DOM元素的事件冒泡。
+
+一个事件触发后，会在子元素和父元素之间传播（propagation）。这种传播分成三个阶段。
+
+捕获阶段：从window对象传导到目标节点（上层传到底层）称为“捕获阶段”（capture phase），捕获阶段不会响应任何事件；
+目标阶段：在目标节点上触发，称为“目标阶段”
+冒泡阶段：从目标节点传导回window对象（从底层传回上层），称为“冒泡阶段”（bubbling phase）。事件代理即是利用事件冒泡的机制把里层所需要响应的事件绑定到外层。
+
+事件委托的优点：
+可以大量节省内存占用，减少事件注册。
+比如在ul上代理所有li的click事件就非常棒
+
+## Promise.all 和 Promise.allSettled 有什么区别？
+
+一句话概括Promise.allSettled和Promise.all的最大不同：Promise.allSettled永远不会被reject。
+
+Promise.all的痛点
+当需要处理多个Promise并行时，大多数情况下Promise.all用起来是非常顺手的，比如下面这样
+
+const delay = n => new Promise(resolve => setTimeout(resolve, n));
+
+const promises = [
+  delay(100).then(() => 1),
+  delay(200).then(() => 2),
+  ]
+
+Promise.all(promises).then(values=>console.log(values))
+// 最终输出： [1, 2]
+可是，是一旦有一个promise出现了异常，被reject了，情况就会变的麻烦。
+
+const promises = [
+  delay(100).then(() => 1),
+  delay(200).then(() => 2),
+  Promise.reject(3)
+  ]
+
+Promise.all(promises).then(values=>console.log(values))
+// 最终输出： Uncaught (in promise) 3
+
+Promise.all(promises)
+.then(values=>console.log(values))
+.catch(err=>console.log(err))
+// 加入catch语句后，最终输出：3
+尽管能用catch捕获其中的异常，但你会发现其他执行成功的Promise的消息都丢失了，仿佛石沉大海一般。
+
+要么全部成功，要么全部重来，这是Promise.all本身的强硬逻辑，也是痛点的来源，不能说它错，但这的确给Promise.allSettled留下了立足的空间。
+
+Promise.allSettled
+假如使用Promise.allSettled来处理这段逻辑会怎样呢?
+
+const promises = [
+  delay(100).then(() => 1),
+  delay(200).then(() => 2),
+  Promise.reject(3)
+  ]
+
+Promise.allSettled(promises).then(values=>console.log(values))
+// 最终输出： 
+//    [
+//      {status: "fulfilled", value: 1},
+//      {status: "fulfilled", value: 2},
+//      {status: "rejected", value: 3},
+//    ]
+可以看到所有promise的数据都被包含在then语句中，且每个promise的返回值多了一个status字段，表示当前promise的状态，没有任何一个promise的信息被丢失。
+
+因此，当用Promise.allSettled时，我们只需专注在then语句里，当有promise被异常打断时，我们依然能妥善处理那些已经成功了的promise，不必全部重来。
+
+## JS中怎么阻止事件冒泡和默认事件？
+
+event.stopPropagation()方法
+这是阻止事件的冒泡方法，不让事件向 document 上蔓延，但是默认事件任然会执行，当你掉用这个方法的时候，如果点击一个连接，这个连接仍然会被打开，
+
+event.preventDefault()方法
+这是阻止默认事件的方法，比如在a标签的绑定事件上调用此方法，链接则不会被打开，但是会发生冒泡，冒泡会传递到上一层的父元素；
+
+return false
+这个方法比较暴力，他会同事阻止事件冒泡也会阻止默认事件；写上此代码，连接不会被打开，事件也不会传递到上一层的父元素；可以理解为return false就等于同时调用了event.stopPropagation()和event.preventDefault()
