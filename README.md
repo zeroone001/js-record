@@ -906,3 +906,132 @@ event.preventDefault()方法
 
 return false
 这个方法比较暴力，他会同事阻止事件冒泡也会阻止默认事件；写上此代码，连接不会被打开，事件也不会传递到上一层的父元素；可以理解为return false就等于同时调用了event.stopPropagation()和event.preventDefault()
+
+## 谈谈你对事件冒泡和捕获的理解
+
+事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。
+
+<div id="outer">
+    <p id="inner">Click me!</p>
+</div>
+上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？
+
+事件冒泡
+微软提出了名为事件冒泡(event bubbling)的事件流。事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。也就是说，事件会从最内层的元素开始发生，一直向上传播，直到document对象。
+
+因此在事件冒泡的概念下在p元素上发生click事件的顺序应该是p -> div -> body -> html -> document
+
+事件捕获
+网景提出另一种事件流名为事件捕获(event capturing)。与事件冒泡相反，事件会从最外层开始发生，直到最具体的元素。
+
+因此在事件捕获的概念下在p元素上发生click事件的顺序应该是document -> html -> body -> div -> p
+
+addEventListener的第三个参数
+网景 和 微软 曾经的战争还是比较火热的，当时， 网景主张捕获方式，微软主张冒泡方式。后来 w3c 采用折中的方式，平息了战火，制定了统一的标准——先捕获再冒泡。
+
+addEventListener的第三个参数就是为冒泡和捕获准备的。
+
+addEventListener有三个参数：
+
+element.addEventListener(event, function, useCapture)
+第一个参数是需要绑定的事件
+第二个参数是触发事件后要执行的函数
+第三个参数默认值是false，表示在事件冒泡阶段调用事件处理函数;如果参数为true，则表示在事件捕获阶段调用处理函数。
+
+## js中如何判断一个值是否是数组类型？
+
+instanceof
+const arr= [];
+arr instanceof Array; // true
+Array.isArray
+const arr = []
+Array.isArray(arr) // true
+
+const obj = {}
+Array.isArray(obj) // false
+Object.prototype.isPrototypeOf
+使用Object的原型方法isPrototypeOf，判断两个对象的原型是否一样, isPrototypeOf() 方法用于测试一个对象是否存在于另一个对象的原型链上。
+
+const arr = [];
+Object.prototype.isPrototypeOf(arr, Array.prototype); // true
+Object.getPrototypeOf
+Object.getPrototypeOf() 方法返回指定对象的原型（内部[[Prototype]]属性的值）。
+
+const arr = []
+Object.getPrototypeOf(arr) === Array.prototype // true
+Object.prototype.toString
+借用Object原型的call或者apply方法，调用toString()是否为[object Array]
+
+const arr = []
+Object.prototype.toString.call(arr) === '[object Array]' // true
+
+const obj = {}
+Object.prototype.toString.call(obj) // "[object Object]"
+
+
+## IconFont 的原理是什么
+
+IconFont 的使用原理来自于 css 的 @font-face 属性。
+
+这个属性用来定义一个新的字体，基本用法如下：
+```css
+@font-face {
+  font-family: <YourFontName>;
+  src: <url> [<format>],[<source> [<format>]], *;
+  [font-weight: <weight>];
+  [font-style: <style>];
+}
+
+```
+font-family：为载入的字体取名字。
+src：[url]加载字体，可以是相对路径，可以是绝对路径，也可以是网络地址。[format]定义的字体的格式，用来帮助浏览器识别。主要取值为：【truetype(.ttf)、opentype（.otf）、truetype-aat、embedded-opentype(.eot)、svg(.svg)、woff(.woff)】。
+font-weight：定义加粗样式。
+font-style：定义字体样式。
+
+## iconfont是什么？有什么优缺点？
+
+什么是 IconFont
+顾名思义，IconFont 就是字体图标。严格地说，就是一种字体，但是，它们不包含字母或数字，而是包含符号和字形。您可以使用 CSS 设置样式，就像设置常规文本一样，这使得 IconFont 成为 Web 开发时图标的热门选择。
+
+优点
+可以方便地将任何 CSS 效果应用于它们。
+因为它们是矢量图形，所以它们是可伸缩的。这意味着我们可以在不降低质量的情况下伸缩它们。
+我们只需要发送一个或少量 HTTP 请求来加载它们，而不是像图片，可能需要多个 HTTP 请求。
+由于尺寸小，它们加载速度快。
+它们在所有浏览器中都得到支持（甚至支持到 IE6）。
+不足
+不能用来显示复杂图像
+通常只限于一种颜色，除非应用一些 CSS 技巧
+字体图标通常是根据特定的网格设计的，例如 16x16, 32×32, 48×48等。如果由于某种原因将网格系统改为25×25，可能不会得到清晰的结果
+
+## 123['toString'].length + 123 的输出值是多少
+
+function的length
+function fn1 (name) {}
+
+function fn2 (name = '林三心') {}
+
+function fn3 (name, age = 22) {}
+
+function fn4 (name, age = 22, gender) {}
+
+function fn5(name = '林三心', age, gender) { }
+
+console.log(fn1.length) // 1
+console.log(fn2.length) // 0
+console.log(fn3.length) // 1
+console.log(fn4.length) // 1
+console.log(fn5.length) // 0
+function的length，就是第一个具有默认值之前的参数个数。
+
+在函数的形参中，还有剩余参数这个东西，那如果具有剩余参数，会是怎么算呢？
+
+function fn1(name, ...args) {}
+
+console.log(fn1.length) // 1
+可以看出，剩余参数是不算进length的计算之中的。
+
+所以，123['toString'].length + 123 = ?的答案是124
+
+总结
+length 是函数对象的一个属性值，指该函数有多少个必须要传入的参数，即形参的个数。形参的数量不包括剩余参数个数，仅包括第一个具有默认值之前的参数个数
