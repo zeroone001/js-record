@@ -470,9 +470,11 @@ Reflect.isExtensible(myObject) // true
 
 ### Reflect.ownKeys(target)
 
+
 `Reflect.ownKeys`方法用于返回对象的所有属性，基本等同于`Object.getOwnPropertyNames`与`Object.getOwnPropertySymbols`之和。
 
 ```jsx
+
 var myObject = {
   foo: 1,
   bar: 2,
@@ -488,3 +490,30 @@ Object.getOwnPropertySymbols(myObject)
 Reflect.ownKeys(myObject)
 // ['foo', 'bar', Symbol(baz), Symbol(bing)]
 ```
+
+## Proxy 
+
+### Proxy实现观察者模式
+
+先定义了一个Set集合，所有观察者函数都放进这个集合。
+然后，observable函数返回原始对象的代理，拦截赋值操作。
+拦截函数set之中，会自动执行所有观察者。
+
+```js
+const observers = new Set();
+
+/* 将函数放到 Set 里面 */
+const observe = fn => observers.add(fn);
+
+const observable = obj => new Proxy(obj, {set});
+function set(target, key, value, receiver) {
+  const result = Reflect.set(target, key, value, receiver);
+  /* 执行函数调用 */
+  observers.forEach(observer => observer());
+  return result;
+}
+```
+
+
+
+
