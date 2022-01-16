@@ -4,6 +4,22 @@ function deepClone (obj) {
     var _obj = JSON.parse(JSON.stringify(obj));
     return _obj;
 }
+function deepClone(obj) {
+    let res = {};
+    if (obj instanceof Array) {
+        return [...obj];
+    } else {
+        /* 对象 */
+        for(const [key, value] of Object.entries(obj)) {
+            if (typeof value === 'object') {
+                res[key] = deepClone(value);
+            } else {
+                res[key] = value;
+            }
+        }
+    }
+    return res;
+}
 ```
 
 ```css
